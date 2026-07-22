@@ -10,7 +10,7 @@ cp cgitrc.example cgitrc && vim cgitrc # Edit cgitrc first
 mkdir secrets && touch secrets/authorized_keys
 vim secrets/authorized_keys # Put your pub_key
 
-docker compose up -d --build
+docker compose up -d
 ```
 
 - **Web UI:** `http://localhost:8090`
