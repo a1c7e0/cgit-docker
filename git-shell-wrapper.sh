@@ -30,7 +30,9 @@ if echo "$CMD" | grep -qE "^git-(receive|upload)-pack "; then
         chown -R git:git "$FINAL" 2>/dev/null
     fi
 
-    CMD="$(echo "$CMD" | grep -oE '^git-(receive|upload)-pack ') '$FINAL'"
+    # Rebuild command with resolved path
+    CMD="git-upload-pack '$FINAL'"
+    echo "$CMD" | grep -q "^git-receive-pack " && CMD="git-receive-pack '$FINAL'"
 fi
 
 exec git-shell -c "$CMD"

@@ -4,6 +4,7 @@ logo-link=https://git.example.com
 virtual-root=/
 source-filter=/var/www/cgit/filters/syntax-highlighting.py
 about-filter=/var/www/cgit/filters/about-formatting.sh
+enable-git-config=1
 
 clone-prefix=https://git.example.com ssh://git@git.example.com
 
@@ -41,7 +42,6 @@ readme=:install
 
 scan-path=/var/lib/git
 
-enable-git-config=1
 enable-http-clone=1
 enable-index-owner=1
 enable-index-links=1
