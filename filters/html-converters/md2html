@@ -300,5 +300,5 @@ markdown.markdownFromFile(
 		"markdown.extensions.sane_lists",
 		TocExtension(anchorlink=True)],
 	extension_configs={
-		"markdown.extensions.codehilite":{"css_class":"highlight"}})
+		"markdown.extensions.codehilite":{"css_class":"highlight", "guess_lang": False}})
 sys.stdout.write("</div>")
