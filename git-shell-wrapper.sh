@@ -28,6 +28,8 @@ if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \'(.+)\'$ ]]; then
         git init --bare "$FINAL" >/dev/null 2>&1
         git -C "$FINAL" symbolic-ref HEAD refs/heads/main 2>/dev/null
         git -C "$FINAL" config http.uploadpack true 2>/dev/null
+        OWNER=$(cat /var/lib/git/.owner_name 2>/dev/null)
+        [ -n "$OWNER" ] && git -C "$FINAL" config gitweb.owner "$OWNER" 2>/dev/null
         chown -R git:git "$FINAL" 2>/dev/null
     fi
 
