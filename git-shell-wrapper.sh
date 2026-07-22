@@ -31,8 +31,11 @@ if echo "$CMD" | grep -qE "^git-(receive|upload)-pack "; then
     fi
 
     # Rebuild command with resolved path
-    CMD="git-upload-pack '$FINAL'"
-    echo "$CMD" | grep -q "^git-receive-pack " && CMD="git-receive-pack '$FINAL'"
+    if echo "$CMD" | grep -q "^git-receive-pack "; then
+        CMD="git-receive-pack '$FINAL'"
+    else
+        CMD="git-upload-pack '$FINAL'"
+    fi
 fi
 
 exec git-shell -c "$CMD"
