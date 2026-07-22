@@ -10,9 +10,6 @@ chmod +x /home/git/git-shell-wrapper \
          /var/www/cgit/filters/syntax-highlighting.py \
          /var/www/cgit/filters/html-converters/*
 
-# Persist OWNER_NAME for SSH sessions (git-shell-wrapper)
-[ -n "$OWNER_NAME" ] && echo "$OWNER_NAME" > /var/lib/git/.owner_name
-
 mkdir -p /var/cache/cgit /var/lib/git /home/git/.ssh
 chown -R git:git /var/lib/git /var/cache/cgit
 
@@ -42,9 +39,6 @@ fi
 for repo in /var/lib/git/*/; do
     [ -d "$repo" ] || continue
     git -C "$repo" config http.uploadpack true 2>/dev/null || true
-    if [ -n "$OWNER_NAME" ] && [ -z "$(git -C "$repo" config --get gitweb.owner 2>/dev/null)" ]; then
-        git -C "$repo" config gitweb.owner "$OWNER_NAME" 2>/dev/null || true
-    fi
 done
 
 echo "[init] Starting authorized_keys watcher..."

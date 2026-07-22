@@ -5,8 +5,6 @@ services:
     ports:
       - "8090:80"
       - "2222:2222"
-    environment:
-      - OWNER_NAME=Name
     volumes:
       - ./repos:/var/lib/git
       - ./secrets:/secrets

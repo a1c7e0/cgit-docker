@@ -24,13 +24,14 @@ You can edit `secrets/authorized_keys` on the fly, changes will sync automatical
 
 ## Repo metadata
 
-In your repo:
-
 ```bash
-git config gitweb.description "description"    # Edit "Description"
+# Edit "Description"
+ssh -p 2222 git@localhost "git -C /var/lib/git/repo config gitweb.description 'description'"
 
-git config gitweb.owner "rein"                 # Edit "Owner"
+# Edit "Owner"
+ssh -p 2222 git@localhost "git -C /var/lib/git/repo config gitweb.owner 'name'"
 
-git config gitweb.category "name"              # Edit "Section"
+# Edit "Section"
+ssh -p 2222 git@localhost "git -C /var/lib/git/repo config gitweb.category 'section'"
 ```
 
