@@ -8,7 +8,8 @@ else
     CMD="$SSH_ORIGINAL_COMMAND"
 fi
 
-if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \'(.+)\'$ ]]; then
+# Handle git-receive-pack and git-upload-pack (with auto-create on push)
+if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \\'(.+)\\'$ ]]; then
     GIT_CMD="${BASH_REMATCH[1]}"
     RAW="${BASH_REMATCH[2]}"
     RAW="${RAW#/}"
@@ -34,4 +35,11 @@ if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \'(.+)\'$ ]]; then
     CMD="git-${GIT_CMD}-pack '$FINAL'"
 fi
 
-exec git-shell -c "$CMD"
+# Handle general git commands (git -C <path> <command>, git config, etc.)
+if [[ "$CMD" =~ ^git\  ]]; then
+    exec $CMD
+fi
+
+# If no git command matched, show usage
+echo "Usage: git-receive-pack 'repo' | git-upload-pack 'repo' | git <command>"
+exit 1
