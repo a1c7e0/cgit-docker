@@ -16,11 +16,11 @@ docker compose up -d
 - **Web UI:** `http://localhost:8090`
 - **SSH Push:** `ssh://git@localhost:2222`
 
-Repos are auto-created on first push. HTTP clone, SSH pull and push are accepted.
+Repo will be auto-created on the first push. HTTP clone, SSH pull and push are accepted.
 
 > **Note:** Default branch name is `main`, not `master`.
 
-You can edit `secrets/authorized_keys` on the fly, changes will sync automatically.
+You can edit `secrets/authorized_keys` on the fly, changes will sync every 30 seconds.
 
 ## Repo metadata
 
