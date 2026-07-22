@@ -1,7 +1,7 @@
 services:
   cgit:
-    build: .
-    container_name: cgit
+    image: ghcr.io/a1c7e0/cgit-docker:latest
+    restart: unless-stopped
     ports:
       - "8090:80"
       - "2222:2222"
@@ -9,4 +9,3 @@ services:
       - ./repos:/var/lib/git
       - ./secrets:/secrets
       - ./cgitrc:/etc/cgitrc:ro
-    restart: unless-stopped
