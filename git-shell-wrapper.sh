@@ -9,6 +9,7 @@ done
 [ -z "$CMD" ] && CMD="$SSH_ORIGINAL_COMMAND"
 
 if echo "$CMD" | grep -qE "^git-(receive|upload)-pack "; then
+    GIT_CMD=$(echo "$CMD" | grep -oE "^git-(receive|upload)-pack")
     RAW=$(echo "$CMD" | cut -d"'" -f2)
     RAW="${RAW#/}"
 
@@ -22,7 +23,7 @@ if echo "$CMD" | grep -qE "^git-(receive|upload)-pack "; then
     fi
 
     # Auto-create on push if repo doesn't exist
-    if echo "$CMD" | grep -q "^git-receive-pack " && [ ! -d "$FINAL" ]; then
+    if [ "$GIT_CMD" = "git-receive-pack" ] && [ ! -d "$FINAL" ]; then
         mkdir -p "$(dirname "$FINAL")" 2>/dev/null
         git init --bare "$FINAL" >/dev/null 2>&1
         git -C "$FINAL" symbolic-ref HEAD refs/heads/main 2>/dev/null
@@ -30,12 +31,7 @@ if echo "$CMD" | grep -qE "^git-(receive|upload)-pack "; then
         chown -R git:git "$FINAL" 2>/dev/null
     fi
 
-    # Rebuild command with resolved path
-    if echo "$CMD" | grep -q "^git-receive-pack "; then
-        CMD="git-receive-pack '$FINAL'"
-    else
-        CMD="git-upload-pack '$FINAL'"
-    fi
+    CMD="$GIT_CMD '$FINAL'"
 fi
 
 exec git-shell -c "$CMD"
