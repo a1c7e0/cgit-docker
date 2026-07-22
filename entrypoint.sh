@@ -1,4 +1,12 @@
 #!/bin/bash
+set -e
+
+chmod +x /home/git/git-shell-wrapper \
+         /home/git/sync-keys.sh \
+         /var/www/cgit/filters/about-formatting.sh \
+         /var/www/cgit/filters/syntax-highlighting.py \
+         /var/www/cgit/filters/html-converters/*
+
 mkdir -p /var/cache/cgit /var/lib/git /home/git/.ssh
 chown -R git:git /var/lib/git /var/cache/cgit
 

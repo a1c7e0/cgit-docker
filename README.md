@@ -5,8 +5,7 @@ Self-hosted git repository browser using [cgit](https://git.zx2c4.com/cgit), bui
 ## Quick Start
 
 ```bash
-cp cgitrc.example cgitrc
-vim cgitrc # Edit cgitrc first
+cp cgitrc.example cgitrc && vim cgitrc # Edit cgitrc first
 
 mkdir secrets && touch secrets/authorized_keys
 vim secrets/authorized_keys # Put your pub_key

@@ -34,10 +34,10 @@ FROM alpine:latest
 RUN apk add --no-cache \
     git git-daemon fcgiwrap nginx spawn-fcgi \
     highlight python3 py3-pip py3-pygments groff \
-    openssh-server openssh-client \
-    bash inotify-tools
+    openssh-server \
+    bash
 
-RUN pip3 install --break-system-packages markdown
+RUN pip3 install --no-cache-dir --break-system-packages markdown
 
 RUN adduser -D -s /home/git/git-shell-wrapper git && \
     passwd -u git
@@ -53,18 +53,13 @@ COPY --from=builder /build/usr/share/webapps/cgit /usr/share/webapps/cgit
 
 # Filters from cgit upstream
 COPY filters/ /var/www/cgit/filters/
-RUN chmod +x /var/www/cgit/filters/about-formatting.sh \
-             /var/www/cgit/filters/syntax-highlighting.py \
-             /var/www/cgit/filters/html-converters/*
 
 COPY nginx.conf /etc/nginx/http.d/default.conf
 COPY sshd_config /etc/ssh/sshd_config
 COPY git-shell-wrapper.sh /home/git/git-shell-wrapper
-RUN chown git:git /home/git/git-shell-wrapper && \
-    chmod +x /home/git/git-shell-wrapper
+RUN chown git:git /home/git/git-shell-wrapper
 COPY sync-keys.sh /home/git/sync-keys.sh
-RUN chown git:git /home/git/sync-keys.sh && \
-    chmod +x /home/git/sync-keys.sh
+RUN chown git:git /home/git/sync-keys.sh
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
