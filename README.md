@@ -16,7 +16,7 @@ docker compose up -d --build
 - **Web UI:** `http://localhost:8090`
 - **SSH Push:** `ssh://git@localhost:2222`
 
-Repos are auto-created on first push. HTTP clone, SSH pull and push is accepted.
+Repos are auto-created on first push. HTTP clone, SSH pull and push are accepted.
 
 > **Note:** Default branch name is `main`, not `master`.
 
