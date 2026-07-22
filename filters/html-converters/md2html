@@ -2,7 +2,6 @@
 import markdown
 import sys
 import io
-from pygments.formatters import HtmlFormatter
 from markdown.extensions.toc import TocExtension
 sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -284,7 +283,6 @@ div#cgit .markdown-body h1 a.toclink, div#cgit .markdown-body h2 a.toclink, div#
     border: none;
 }
 ''')
-sys.stdout.write(HtmlFormatter(style='pastie').get_style_defs('.highlight'))
 sys.stdout.write('''
 </style>   
 ''')
@@ -295,10 +293,7 @@ markdown.markdownFromFile(
 	output_format="html5",
 	extensions=[
 		"markdown.extensions.fenced_code",
-		"markdown.extensions.codehilite",
 		"markdown.extensions.tables",
 		"markdown.extensions.sane_lists",
-		TocExtension(anchorlink=True)],
-	extension_configs={
-		"markdown.extensions.codehilite":{"css_class":"highlight", "guess_lang": False}})
+		TocExtension(anchorlink=True)])
 sys.stdout.write("</div>")
