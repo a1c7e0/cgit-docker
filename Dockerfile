@@ -57,9 +57,7 @@ COPY filters/ /var/www/cgit/filters/
 COPY nginx.conf /etc/nginx/http.d/default.conf
 COPY sshd_config /etc/ssh/sshd_config
 COPY git-shell-wrapper.sh /home/git/git-shell-wrapper
-RUN chown git:git /home/git/git-shell-wrapper
 COPY sync-keys.sh /home/git/sync-keys.sh
-RUN chown git:git /home/git/sync-keys.sh
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

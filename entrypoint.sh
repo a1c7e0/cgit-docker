@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+chown git:git /home/git/git-shell-wrapper \
+              /home/git/sync-keys.sh
+
 chmod +x /home/git/git-shell-wrapper \
          /home/git/sync-keys.sh \
          /var/www/cgit/filters/about-formatting.sh \
