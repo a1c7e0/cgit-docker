@@ -44,7 +44,7 @@ fi
 # Handle general git commands (git -C <path> <command>, git config, etc.)
 GIT_RE='^git '
 if [[ "$CMD" =~ $GIT_RE ]]; then
-    exec $CMD
+    exec bash -c "$CMD"
 fi
 
 # If no git command matched, show usage
