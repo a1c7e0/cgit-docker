@@ -1,0 +1,12 @@
+services:
+  cgit:
+    build: .
+    container_name: cgit
+    ports:
+      - "8090:80"
+      - "2222:2222"
+    volumes:
+      - ./repos:/var/lib/git
+      - ./secrets:/secrets
+      - ./cgitrc:/etc/cgitrc:ro
+    restart: unless-stopped
