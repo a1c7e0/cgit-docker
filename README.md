@@ -35,3 +35,9 @@ ssh -p 2222 git@localhost "git -C /var/lib/git/repo config gitweb.owner 'name'"
 ssh -p 2222 git@localhost "git -C /var/lib/git/repo config gitweb.category 'section'"
 ```
 
+## License
+
+[GPL-2.0](LICENSE)
+
+The filter scripts under `filters/` are derived from [cgit](https://github.com/zx2c4/cgit) (GPL-2.0).
+
