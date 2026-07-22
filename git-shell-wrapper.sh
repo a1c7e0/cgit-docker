@@ -8,10 +8,16 @@ else
     CMD="$SSH_ORIGINAL_COMMAND"
 fi
 
-# Handle git-receive-pack and git-upload-pack (with auto-create on push)
-if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \\'(.+)\\'$ ]]; then
+# Handle git-receive-pack and git-upload-pack (with or without quotes)
+if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \'(.+)\'$ ]]; then
     GIT_CMD="${BASH_REMATCH[1]}"
     RAW="${BASH_REMATCH[2]}"
+elif [[ "$CMD" =~ ^git-(receive|upload)-pack\ (.+)$ ]]; then
+    GIT_CMD="${BASH_REMATCH[1]}"
+    RAW="${BASH_REMATCH[2]}"
+fi
+
+if [ -n "$GIT_CMD" ]; then
     RAW="${RAW#/}"
 
     # Resolve repo path: try exact name first, then strip .git suffix
@@ -32,11 +38,12 @@ if [[ "$CMD" =~ ^git-(receive|upload)-pack\ \\'(.+)\\'$ ]]; then
         chown -R git:git "$FINAL" 2>/dev/null
     fi
 
-    CMD="git-${GIT_CMD}-pack '$FINAL'"
+    exec git-"${GIT_CMD}-pack" "$FINAL"
 fi
 
 # Handle general git commands (git -C <path> <command>, git config, etc.)
-if [[ "$CMD" =~ ^git\  ]]; then
+GIT_RE='^git '
+if [[ "$CMD" =~ $GIT_RE ]]; then
     exec $CMD
 fi
 
